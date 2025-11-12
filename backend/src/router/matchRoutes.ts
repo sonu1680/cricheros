@@ -1,15 +1,13 @@
 import express from "express";
-import { ballsToOvers, calculateNRR, oversToBalls, simulateMatch } from "../utils/nrrCalculator.js";
+import { calculateNRR } from "../utils/nrrCalculator.js";
 import { MatchInput, TeamStats } from "../const/types.js";
 import { pointsTable } from "../const/pointsTable.js";
 
- const router = express.Router();
+const router = express.Router();
 
-
-router.get("/test",(req,res)=>{
-  return res.status(200).json({message:"API is working"})
-})
-
+router.get("/test", (req, res) => {
+  return res.status(200).json({ message: "API is working" });
+});
 
 /** Helper to sort points table by points then NRR */
 const sortTeams = (teams: TeamStats[]) =>
@@ -165,13 +163,9 @@ router.post("/calculate", (req, res) => {
     let minNRR: number | null = null;
     let maxNRR: number | null = null;
 
-    // ---------------- 🏏 Case 1: Batting First ----------------
+    // ----------------  Case 1: Batting First ----------------
     if (tossResult === "bat") {
-      for (
-        let oppRuns = runsScored - 100;
-        oppRuns <= runsScored + 100;
-        oppRuns++
-      ) {
+      for (let oppRuns = 0; oppRuns <= runsScored + 10; oppRuns++) {
         const newTable = baseTable.map((t) => ({ ...t }));
         const updatedTeam = newTable.find((t) => t.name === myTeam.name)!;
         const updatedOpp = newTable.find((t) => t.name === oppTeam.name)!;
@@ -216,26 +210,33 @@ router.post("/calculate", (req, res) => {
       });
     }
 
-    // ---------------- 🏏 Case 2: Bowling First ----------------
+    // ----------------  Case 2: Bowling First ----------------
     else {
       const target = runsScored + 1;
-      for (let chaseOvers = overs; chaseOvers >= 5; chaseOvers -= 0.05) {
+      for (let chaseOvers = overs; chaseOvers >= 1; chaseOvers -= 0.166) {
         const newTable = baseTable.map((t) => ({ ...t }));
         const updatedTeam = newTable.find((t) => t.name === myTeam.name)!;
         const updatedOpp = newTable.find((t) => t.name === oppTeam.name)!;
+        updatedTeam.runsFor = myTeam.runsFor + target;
+        updatedTeam.oversFor = myTeam.oversFor + chaseOvers;
+        updatedTeam.runsAgainst = myTeam.runsAgainst + runsScored;
+        updatedTeam.oversAgainst = myTeam.oversAgainst + overs;
 
-        updatedTeam.runsFor += target;
-        updatedTeam.oversFor += chaseOvers;
-        updatedTeam.runsAgainst += runsScored;
-        updatedTeam.oversAgainst += overs;
         updatedTeam.matches++;
         updatedTeam.points += 2;
         updatedTeam.nrr = calculateNRR(updatedTeam);
 
-        updatedOpp.runsFor += runsScored;
-        updatedOpp.oversFor += overs;
-        updatedOpp.runsAgainst += target;
-        updatedOpp.oversAgainst += chaseOvers;
+        updatedOpp.runsFor = oppTeam.runsFor + runsScored;
+        updatedOpp.oversFor = oppTeam.oversFor + overs;
+        updatedOpp.runsAgainst = oppTeam.runsAgainst + target;
+        updatedOpp.oversAgainst = oppTeam.oversAgainst + chaseOvers;
+        console.log(
+          chaseOvers,
+          "myNrr:",
+          updatedTeam.nrr,
+          "oppNrr:",
+          updatedOpp.nrr
+        );
         updatedOpp.matches++;
         updatedOpp.nrr = calculateNRR(updatedOpp);
 
