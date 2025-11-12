@@ -19,3 +19,14 @@ export interface MatchInput {
   tossResult: "bat" | "bowl";
   runsScored: number;
 }
+export interface MatchContext {
+  myTeam: any;
+  oppTeam: any;
+  baseTable: any[];
+  runsScored: number;
+  overs: number;
+  oppRuns?: number; // used if batting first
+  chaseBalls?: number; // used if chasing
+  target?: number; // used if chasing
+  battingFirst: boolean;
+}
