@@ -1,12 +1,9 @@
 import { TeamStats } from "../const/types";
 
 export const normalizeOver = (overs: string | number): number => {
-  const str = overs.toString();
-  if (!str.includes(".")) return Number(str);
-  const [over, balls] = str.split(".");
-  const o = parseInt(over);
-  const b = parseInt(balls);
-  return o + b / 6;
+  const [over, balls] = overs.toString().split(".");
+  const totalBalls = parseInt(over) * 6 + (balls ? parseInt(balls) : 0);
+  return totalBalls / 6;
 };
 export const ballsToOvers = (balls: number): number => {
   const over = Math.floor(balls / 6);

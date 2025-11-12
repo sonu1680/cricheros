@@ -7,14 +7,10 @@ const router = express.Router();
 
 router.post("/calculate", (req, res) => {
   try {
-    const {
-      team,
-      opponent,
-      overs,
-      tossResult,
-      runsScored,
-      desiredPosition,
-    }: MatchInput = req.body;
+    const { team, opponent, tossResult }: MatchInput = req.body;
+    const runsScored = Number(req.body.runsScored);
+    const overs = Number(req.body.overs);
+    const desiredPosition = Number(req.body.desiredPosition);
 
     const myTeam = pointsTable.find((t) => t.name === team);
     const oppTeam = pointsTable.find((t) => t.name === opponent);
@@ -42,7 +38,7 @@ router.post("/calculate", (req, res) => {
         updatedTeam.matches++;
         if (runsScored > oppRuns) updatedTeam.points += 2;
 
-        // ✅ Calculate NRR here
+        // Calculate NRR here
         updatedTeam.nrr = calculateNRR(updatedTeam);
 
         updatedOpp.runsFor += oppRuns;
@@ -55,7 +51,7 @@ router.post("/calculate", (req, res) => {
         const ranked = sortTeams(newTable);
         const newPosition = ranked.findIndex((t) => t.name === team) + 1;
 
-        // ✅ Return both position and NRR (important!)
+        // Return both position and NRR 
         return {
           position: newPosition,
           nrr: updatedTeam.nrr,
@@ -106,10 +102,35 @@ router.post("/calculate", (req, res) => {
           message: "Not achievable with given data",
         });
       }
+
+      const calucatedResult = {
+        label: "Q",
+        maxNRR: maxNRR,
+        maxRuns: maxValue,
+        minNRR: minNRR,
+        minRuns: minValue,
+        oppositionTeam: opponent,
+        overs: overs,
+        runsScored: runsScored,
+        title: `If ${team} score ${runsScored} runs in ${overs} overs`,
+        type: "batting_restrict",
+        yourTeam: team,
+      };
+
+      const result = {
+        summary: {
+          desiredPosition: desiredPosition,
+          oppositionTeam: opponent,
+          yourTeam: team,
+          message: `If ${team} score ${runsScored} runs in ${overs} overs, ${team} need to restrict ${opponent} between ${minValue} to ${maxValue} runs in ${overs} overs. Revised NRR of ${team} will be between ${minNRR?.toFixed(
+            3
+          )} to ${maxNRR?.toFixed(3)}.`,
+        },
+        questions: [calucatedResult],
+      };
+
       return res.json({
-        message: `If ${team} score ${runsScored} runs in ${overs} overs, ${team} need to restrict ${opponent} between ${minValue} to ${maxValue} runs in ${overs} overs. Revised NRR of ${team} will be between ${minNRR?.toFixed(
-          3
-        )} to ${maxNRR?.toFixed(3)}.`,
+        result: result,
       });
     }
 
@@ -144,15 +165,14 @@ router.post("/calculate", (req, res) => {
 
         return { position: newPosition, nrr: updatedTeam.nrr };
       };
-      // Binary Search for min overs (fastest chase)
 
+      // Binary Search for min overs (fastest chase)
       let low = 0,
         high = totalBalls;
       while (low <= high) {
         const mid = Math.floor((low + high) / 2);
         const { position, nrr } = simulateMatch(mid);
         if (position === desiredPosition) {
-          console.log("min", position, nrr, mid);
           minValue = Number((mid / 6).toFixed(2));
           minNRR = nrr;
           high = mid - 1;
@@ -169,7 +189,6 @@ router.post("/calculate", (req, res) => {
         const { position, nrr } = simulateMatch(mid);
 
         if (position === desiredPosition) {
-          console.log("max", position, nrr, mid);
           maxValue = Number((mid / 6).toFixed(2));
           maxNRR = nrr;
           low = mid + 1;
@@ -182,10 +201,34 @@ router.post("/calculate", (req, res) => {
         });
       }
 
+      const calucatedResult = {
+        label: "Q",
+        type: "bowling_chase",
+        title: `If ${opponent} scores ${runsScored} runs in ${overs} overs`,
+        yourTeam: team,
+        oppositionTeam: opponent,
+        overs: overs,
+        runsToChase: runsScored,
+        minOvers: minValue,
+        maxOvers: maxValue,
+        minNRR: minNRR,
+        maxNRR: maxNRR,
+      };
+
+      const result = {
+        summary: {
+          desiredPosition: desiredPosition,
+          oppositionTeam: opponent,
+          yourTeam: team,
+          message: `${team} need to chase ${runsScored} runs between ${minValue} and ${maxValue} overs. Revised NRR of ${team} will be between ${minNRR?.toFixed(
+            3
+          )} to ${maxNRR?.toFixed(3)}.`,
+        },
+        questions: [calucatedResult],
+      };
+
       return res.json({
-        message: `${team} need to chase ${runsScored} runs between ${minValue} and ${maxValue} overs. Revised NRR of ${team} will be between ${minNRR?.toFixed(
-          3
-        )} to ${maxNRR?.toFixed(3)}.`,
+        result: result,
       });
     }
   } catch (err) {
