@@ -1,11 +1,5 @@
-"use client"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Spinner } from "@/components/ui/spinner"
+"use client";
+import { useState } from "react";
 
 const TEAMS = [
   "Chennai Super Kings",
@@ -27,11 +21,11 @@ export function CalculatorForm({
     opponent: "",
     overs: "20",
     desiredPosition: "3",
-    tossResult: "batting",
+    tossResult: "bat",
     runsScored: "",
   });
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.team || !formData.opponent || !formData.runsScored) {
       alert("Please fill all fields");
@@ -41,185 +35,194 @@ export function CalculatorForm({
   };
 
   return (
-    <Card
-      className="cricket-card bg-card border-red-200 shadow-lg"
-      style={{ animation: "fadeInUp 0.6s ease-out" }}
-    >
-      <CardHeader className="border-b border-red-200 bg-linear-to-r from-red-50 to-orange-50">
-        <CardTitle className="text-xl font-bold text-red-900">
-          Calculate Requirements
-        </CardTitle>
-        <p className="text-sm text-red-700 mt-1">Find your path to glory</p>
-      </CardHeader>
-      <CardContent className="pt-6">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div
-            className="space-y-2"
-            style={{ animation: "fadeInUp 0.6s ease-out 0.1s both" }}
-          >
-            <Label
-              htmlFor="yourTeam"
-              className="text-sm font-semibold text-foreground"
-            >
-              Your Team
-            </Label>
-            <Select
+    <div className="card">
+      <div className="card-header">
+        <h2>Calculate Requirements</h2>
+        <p>Find your path to glory</p>
+      </div>
+
+      <div className="card-body">
+        <form onSubmit={handleSubmit} className="form">
+          {/* Team Select */}
+          <div className="form-group">
+            <label>Your Team</label>
+            <select
               value={formData.team}
-              
-              onValueChange={(value) =>
-                setFormData({ ...formData, team: value })
+              onChange={(e) =>
+                setFormData({ ...formData, team: e.target.value })
               }
             >
-              <SelectTrigger
-                id="yourTeam"
-                className="bg-white border-red-200 hover:border-red-400 transition-colors"
-              >
-                <SelectValue placeholder="Select team" />
-              </SelectTrigger>
-              <SelectContent className="bg-white border-red-200">
-                {TEAMS.map((team) => (
-                  <SelectItem key={team} value={team}>
-                    {team}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <option value="">Select team</option>
+              {TEAMS.map((team) => (
+                <option key={team} value={team}>
+                  {team}
+                </option>
+              ))}
+            </select>
           </div>
 
-          <div
-            className="space-y-2"
-            style={{ animation: "fadeInUp 0.6s ease-out 0.2s both" }}
-          >
-            <Label
-              htmlFor="oppositionTeam"
-              className="text-sm font-semibold text-foreground"
-            >
-              Opposition Team
-            </Label>
-            <Select
+          {/* Opponent Select */}
+          <div className="form-group">
+            <label>Opposition Team</label>
+            <select
               value={formData.opponent}
-              onValueChange={(value) =>
-                setFormData({ ...formData, opponent: value })
+              onChange={(e) =>
+                setFormData({ ...formData, opponent: e.target.value })
               }
             >
-              <SelectTrigger
-                id="oppositionTeam"
-                className="bg-white border-red-200 hover:border-red-400 transition-colors"
-              >
-                <SelectValue placeholder="Select team" />
-              </SelectTrigger>
-              <SelectContent className="bg-white border-red-200">
-                {TEAMS.filter((team) => team !== formData.team).map((team) => (
-                  <SelectItem key={team} value={team}>
-                    {team}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <option value="">Select opponent</option>
+              {TEAMS.filter((t) => t !== formData.team).map((team) => (
+                <option key={team} value={team}>
+                  {team}
+                </option>
+              ))}
+            </select>
           </div>
 
-          <div
-            className="space-y-2"
-            style={{ animation: "fadeInUp 0.6s ease-out 0.3s both" }}
-          >
-            <Label
-              htmlFor="position"
-              className="text-sm font-semibold text-foreground"
-            >
-              Desired Position
-            </Label>
-            <Select
+          {/* Desired Position */}
+          <div className="form-group">
+            <label>Desired Position</label>
+            <select
               value={formData.desiredPosition}
-              onValueChange={(value) =>
-                setFormData({ ...formData, desiredPosition: value })
+              onChange={(e) =>
+                setFormData({ ...formData, desiredPosition: e.target.value })
               }
             >
-              <SelectTrigger
-                id="position"
-                className="bg-white border-red-200 hover:border-red-400 transition-colors"
-              >
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent className="bg-white border-red-200">
-                {[1, 2, 3, 4, 5].map((pos) => (
-                  <SelectItem key={pos} value={pos.toString()}>
-                    Position {pos}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              {[1, 2, 3, 4, 5].map((pos) => (
+                <option key={pos} value={pos}>
+                  Position {pos}
+                </option>
+              ))}
+            </select>
           </div>
 
-          <div
-            className="space-y-2"
-            style={{ animation: "fadeInUp 0.6s ease-out 0.4s both" }}
-          >
-            <Label
-              htmlFor="toss"
-              className="text-sm font-semibold text-foreground"
-            >
-              Toss Result
-            </Label>
-            <Select
+          {/* Toss Result */}
+          <div className="form-group">
+            <label>Toss Result</label>
+            <select
               value={formData.tossResult}
-              onValueChange={(value) =>
-                setFormData({ ...formData, tossResult: value })
+              onChange={(e) =>
+                setFormData({ ...formData, tossResult: e.target.value })
               }
             >
-              <SelectTrigger
-                id="toss"
-                className="bg-white border-red-200 hover:border-red-400 transition-colors"
-              >
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent className="bg-white border-red-200">
-                <SelectItem value="bat">Batting First</SelectItem>
-                <SelectItem value="bowl">Bowling First</SelectItem>
-              </SelectContent>
-            </Select>
+              <option value="bat">Batting First</option>
+              <option value="bowl">Bowling First</option>
+            </select>
           </div>
 
-          <div
-            className="space-y-2"
-            style={{ animation: "fadeInUp 0.6s ease-out 0.5s both" }}
-          >
-            <Label
-              htmlFor="runs"
-              className="text-sm font-semibold text-foreground"
-            >
-              {formData.tossResult === "batting"
+          {/* Runs */}
+          <div className="form-group">
+            <label>
+              {formData.tossResult === "bat"
                 ? "Runs Scored (20 overs)"
                 : "Runs to Chase"}
-            </Label>
-            <Input
-              id="runs"
+            </label>
+            <input
               type="number"
               placeholder="Enter runs"
               value={formData.runsScored}
               onChange={(e) =>
                 setFormData({ ...formData, runsScored: e.target.value })
               }
-              className="bg-white border-red-200 hover:border-red-400 transition-colors"
             />
           </div>
 
-          <Button
-            type="submit"
-            disabled={loading}
-            className="w-full gradient-red hover:bg-red-700 text-white font-bold h-11 text-base rounded-lg transition-all shadow-md button-hover-lift"
-            style={{ animation: "fadeInUp 0.6s ease-out 0.6s both" }}
-          >
-            {loading ? (
-              <div className="flex items-center gap-2">
-                <Spinner className="h-4 w-4 animate-spin" />
-                Calculating...
-              </div>
-            ) : (
-              "⚡ Calculate Requirements"
-            )}
-          </Button>
+          <button type="submit" disabled={loading} className="submit-btn">
+            {loading ? "Calculating..." : "⚡ Calculate Requirements"}
+          </button>
         </form>
-      </CardContent>
-    </Card>
+      </div>
+
+      <style jsx>{`
+        .card {
+          background: #fff;
+          border: 1px solid #f5c2c2;
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+          max-width: 420px;
+          margin: 2rem auto;
+          animation: fadeInUp 0.6s ease-out;
+        }
+
+        .card-header {
+          background: linear-gradient(to right, #fff0f0, #ffe5d1);
+          padding: 1rem 1.5rem;
+          border-bottom: 1px solid #f5c2c2;
+        }
+
+        .card-header h2 {
+          font-size: 1.25rem;
+          color: #a4161a;
+          margin-bottom: 0.3rem;
+        }
+
+        .card-header p {
+          font-size: 0.85rem;
+          color: #7a1c1c;
+        }
+
+        .card-body {
+          padding: 1.5rem;
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 1rem;
+        }
+
+        label {
+          font-weight: 600;
+          margin-bottom: 0.4rem;
+          color: #333;
+        }
+
+        select,
+        input {
+          padding: 0.6rem 0.8rem;
+          border: 1px solid #f5c2c2;
+          border-radius: 6px;
+          transition: border 0.2s;
+        }
+
+        select:hover,
+        input:hover {
+          border-color: #f08080;
+        }
+
+        .submit-btn {
+          width: 100%;
+          padding: 0.8rem;
+          background: #c1121f;
+          color: #fff;
+          font-weight: bold;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background 0.3s, transform 0.2s;
+        }
+
+        .submit-btn:hover {
+          background: #a4161a;
+          transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        @keyframes fadeInUp {
+          0% {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+    </div>
   );
 }

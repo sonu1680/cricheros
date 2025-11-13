@@ -86,3 +86,24 @@ export interface CalculateResponse {
     }[];
   };
 }
+
+export interface Question {
+  type: string;
+  minRuns?: number;
+  maxRuns?: number;
+  overs?: number;
+  oppositionTeam?: string;
+  minNRR?: number;
+  maxNRR?: number;
+  minOvers?: number;
+  maxOvers?: number;
+  runsToChase?: number;
+  label: string;
+  title: string;
+}
+
+export interface ResultsDisplayProps {
+  results: {
+    questions: Question[];
+  } | null;
+}

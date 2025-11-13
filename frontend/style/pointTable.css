@@ -1,0 +1,147 @@
+ .card {
+     background: #fff;
+     border: 1px solid #f5c2c2;
+     border-radius: 10px;
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+     margin: 2rem auto;
+     max-width: 700px;
+     overflow: hidden;
+     animation: fadeInUp 0.6s ease-out;
+ }
+
+ .card-header {
+     background: linear-gradient(to right, #fff0f0, #ffe5d1);
+     border-bottom: 1px solid #f5c2c2;
+     padding: 1rem 1.5rem;
+ }
+
+ .header-content {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+ }
+
+ h2 {
+     font-size: 1.5rem;
+     color: #a4161a;
+     font-weight: 700;
+ }
+
+ .badge {
+     background-color: #d32f2f;
+     color: white;
+     font-weight: 600;
+     padding: 0.3rem 0.7rem;
+     border-radius: 6px;
+     font-size: 0.8rem;
+     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+ }
+
+ .card-body {
+     padding: 0;
+ }
+
+ .table-wrapper {
+     overflow-x: auto;
+ }
+
+ .points-table {
+     width: 100%;
+     border-collapse: collapse;
+     min-width: 600px;
+ }
+
+ thead {
+     background-color: #fff5f5;
+ }
+
+ th {
+     font-size: 0.75rem;
+     font-weight: 700;
+     text-transform: uppercase;
+     color: #8b0000;
+     border-bottom: 1px solid #f0bebe;
+     padding: 0.75rem;
+     text-align: right;
+ }
+
+ th:first-child,
+ td:first-child {
+     text-align: left;
+ }
+
+ tbody tr {
+     border-bottom: 1px solid #f9dcdc;
+     transition: background-color 0.2s ease;
+     cursor: pointer;
+ }
+
+ tbody tr:hover {
+     background-color: #fff0f0;
+ }
+
+ td {
+     padding: 0.7rem;
+     font-size: 0.9rem;
+     color: #333;
+     text-align: right;
+ }
+
+ td.team {
+     text-align: left;
+     font-weight: 600;
+     color: #222;
+ }
+
+ td.pos {
+     font-weight: bold;
+     color: #c1121f;
+     font-size: 1.1rem;
+ }
+
+ td.won {
+     color: #2e7d32;
+     font-weight: 700;
+ }
+
+ td.lost {
+     color: #d32f2f;
+     font-weight: 700;
+ }
+
+ td.nrr {
+     color: #1565c0;
+     font-family: monospace;
+     font-weight: 600;
+ }
+
+ td.points {
+     color: #b71c1c;
+     font-weight: 700;
+ }
+
+ @keyframes pulse {
+
+     0%,
+     100% {
+         opacity: 1;
+         transform: scale(1);
+     }
+
+     50% {
+         opacity: 0.8;
+         transform: scale(1.05);
+     }
+ }
+
+ @keyframes fadeInUp {
+     0% {
+         opacity: 0;
+         transform: translateY(20px);
+     }
+
+     100% {
+         opacity: 1;
+         transform: translateY(0);
+     }
+ }
