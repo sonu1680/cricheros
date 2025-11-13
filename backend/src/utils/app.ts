@@ -18,6 +18,11 @@ app.use(helmet());
 // apply rate limiting middleware
 app.use(limiter);
 
+//to check if api is working
+app.get("test",(req,res)=>{
+    res.end("API is working");
+});
+
 app.use("/api", rankRoutes);
 
 export default app;
