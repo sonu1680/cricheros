@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { MatchInput } from "../const/types.js";
-import { POINTS_TABLE } from "../const/pointsTable.js";
-import { simulateBattingScenario } from "../services/matchSimulation/battingSimulation.js";
-import { simulateBowlingScenario } from "../services/matchSimulation/bowlingSimulation.js";
+import { MatchInput } from "../const/types";
+import { POINTS_TABLE } from "../const/pointsTable";
+import { simulateBattingScenario } from "../services/matchSimulation/battingSimulation";
+import { simulateBowlingScenario } from "../services/matchSimulation/bowlingSimulation";
 
 export const calculateRank = (req: Request, res: Response) => {
   try {
