@@ -1,8 +1,8 @@
 import express from "express";
-import { calculateRank } from "../controllers/calculateRank.js";
+import { calculateTeamPosition } from "../controllers/calculateTeamPosition";
 
 const rankRoutes = express.Router();
 
-rankRoutes.post("/calculate", calculateRank);
+rankRoutes.post("/calculate", calculateTeamPosition);
 
 export default rankRoutes;

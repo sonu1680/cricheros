@@ -21,7 +21,7 @@ export function ResultsDisplay({ results }: ResultsDisplayProps) {
           <div className="info-box blue">
             <p className="info-label">Revised NRR Range</p>
             <p className="info-value">
-              {q.minNRR?.toFixed(3)} — {q.maxNRR?.toFixed(3)}
+              {q.maxNRR?.toFixed(3)} — {q.minNRR?.toFixed(3)}
             </p>
           </div>
         </div>
@@ -44,7 +44,7 @@ export function ResultsDisplay({ results }: ResultsDisplayProps) {
           <div className="info-box purple">
             <p className="info-label">Revised NRR Range</p>
             <p className="info-value">
-              {q.minNRR?.toFixed(3)} — {q.maxNRR?.toFixed(3)}
+              {q.maxNRR?.toFixed(3)} — {q.minNRR?.toFixed(3)}
             </p>
           </div>
         </div>
