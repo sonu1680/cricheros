@@ -118,7 +118,8 @@ The frontend will usually run at **http://localhost:3000**
 and backend at **http://localhost:5000** (or your configured port).
 
 ---
-
+### LIVE URL PREVIEW
+ https://cricheros.sonupandit.in
 ## Some added Images of result 
 <img width="562" height="268" alt="Screenshot 2025-11-13 154359" src="https://github.com/user-attachments/assets/fcea22fb-6dbb-4172-8c6b-e8f1b8cf8f0a" />
 <img width="1302" height="508" alt="Screenshot 2025-11-13 154434" src="https://github.com/user-attachments/assets/8d1e4f26-aec9-454a-89bf-610937de7a83" />
