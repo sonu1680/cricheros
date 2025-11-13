@@ -1,57 +1,88 @@
 export const POINTS_TABLE = [
   {
-    position: 1,
-    team: "Chennai Super Kings",
+    name: "Chennai Super Kings",
     matches: 7,
     won: 5,
     lost: 2,
     nrr: 0.771,
-    for: "1130/133.1",
-    against: "1071/138.5",
+    runsFor: 1130,
+    oversFor: 133.1,
+    runsAgainst: 1071,
+    oversAgainst: 138.5,
     points: 10,
   },
   {
-    position: 2,
-    team: "Royal Challengers Bangalore",
+    name: "Royal Challengers Bangalore",
     matches: 7,
     won: 4,
     lost: 3,
     nrr: 0.597,
-    for: "1217/140",
-    against: "1066/131.4",
+    runsFor: 1217,
+    oversFor: 140,
+    runsAgainst: 1066,
+    oversAgainst: 131.4,
     points: 8,
   },
   {
-    position: 3,
-    team: "Delhi Capitals",
+    name: "Delhi Capitals",
     matches: 7,
     won: 4,
     lost: 3,
     nrr: 0.319,
-    for: "1085/126",
-    against: "1136/137",
+    runsFor: 1085,
+    oversFor: 126,
+    runsAgainst: 1136,
+    oversAgainst: 137,
     points: 8,
   },
   {
-    position: 4,
-    team: "Rajasthan Royals",
+    name: "Rajasthan Royals",
     matches: 7,
     won: 3,
     lost: 4,
     nrr: 0.331,
-    for: "1066/128.2",
-    against: "1094/137.1",
+    runsFor: 1066,
+    oversFor: 128.2,
+    runsAgainst: 1094,
+    oversAgainst: 137.1,
     points: 6,
   },
   {
-    position: 5,
-    team: "Mumbai Indians",
+    name: "Mumbai Indians",
     matches: 8,
     won: 2,
     lost: 6,
     nrr: -1.75,
-    for: "1003/155.2",
-    against: "1134/138.1",
+    runsFor: 1003,
+    oversFor: 155.2,
+    runsAgainst: 1134,
+    oversAgainst: 138.1,
     points: 4,
   },
-]
+];
+
+
+
+export interface CalculateResponse {
+  result: {
+    summary: {
+      desiredPosition: number;
+      oppositionTeam: string;
+      yourTeam: string;
+      message: string;
+    };
+    questions: {
+      label: string;
+      type: string;
+      title: string;
+      yourTeam: string;
+      oppositionTeam: string;
+      overs: number;
+      runsToChase: number;
+      minOvers: number;
+      maxOvers: number;
+      minNRR: number;
+      maxNRR: number;
+    }[];
+  };
+}

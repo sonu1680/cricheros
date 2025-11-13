@@ -1,4 +1,4 @@
-
+"use client"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -45,7 +45,7 @@ export function CalculatorForm({
       className="cricket-card bg-card border-red-200 shadow-lg"
       style={{ animation: "fadeInUp 0.6s ease-out" }}
     >
-      <CardHeader className="border-b border-red-200 bg-gradient-to-r from-red-50 to-orange-50">
+      <CardHeader className="border-b border-red-200 bg-linear-to-r from-red-50 to-orange-50">
         <CardTitle className="text-xl font-bold text-red-900">
           Calculate Requirements
         </CardTitle>
@@ -65,6 +65,7 @@ export function CalculatorForm({
             </Label>
             <Select
               value={formData.team}
+              
               onValueChange={(value) =>
                 setFormData({ ...formData, team: value })
               }

@@ -1,15 +1,21 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import {  Poppins } from "next/font/google"
 import "./globals.css"
 
-const geistSans = Geist({ subsets: ["latin"] })
-const geistMono = Geist_Mono({ subsets: ["latin"] })
+
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
 
 export const metadata: Metadata = {
   title: "IPL Points Calculator",
   description: "Analyze performance requirements to reach desired positions in the IPL",
-    generator: 'v0.app'
+  icons:"logo.png"
 }
 
 export default function RootLayout({
@@ -19,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.className} antialiased`}>{children}</body>
+      <body className={`${poppins.className} antialiased`}>{children}</body>
     </html>
   )
 }

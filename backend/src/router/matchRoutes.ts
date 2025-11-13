@@ -98,9 +98,9 @@ router.post("/calculate", (req, res) => {
         }
       }
       if (minValue === null) {
-        return res.json({
-          message: "Not achievable with given data",
-        });
+         return res.json({
+           result: { summary: { message: "Not achievable with given data" } },
+         });
       }
 
       const calucatedResult = {
@@ -197,7 +197,7 @@ router.post("/calculate", (req, res) => {
       }
       if (minValue === null) {
         return res.json({
-          message: "Not achievable with given data",
+          result:{summary:{ message:"Not achievable with given data"}},
         });
       }
 

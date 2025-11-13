@@ -9,7 +9,7 @@ export function ResultsDisplay({ results }:{results:any}) {
       return (
         <div className="space-y-3">
           <div
-            className="bg-gradient-to-r from-red-50 to-orange-50 rounded-lg p-5 border-2 border-red-200 hover:shadow-lg transition-all duration-300"
+            className="bg-linear-to-r from-red-50 to-orange-50 rounded-lg p-5 border-2 border-red-200 hover:shadow-lg transition-all duration-300"
             style={{ animation: "scaleIn 0.5s ease-out" }}
           >
             <p className="text-xs font-bold text-red-700 uppercase tracking-wider mb-2">Required Restriction Range</p>
@@ -21,7 +21,7 @@ export function ResultsDisplay({ results }:{results:any}) {
             </p>
           </div>
           <div
-            className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-5 border-2 border-blue-200 hover:shadow-lg transition-all duration-300"
+            className="bg-linear-to-r from-blue-50 to-cyan-50 rounded-lg p-5 border-2 border-blue-200 hover:shadow-lg transition-all duration-300"
             style={{ animation: "scaleIn 0.5s ease-out 0.1s both" }}
           >
             <p className="text-xs font-bold text-blue-700 uppercase tracking-wider mb-2">Revised NRR Range</p>
@@ -37,7 +37,7 @@ export function ResultsDisplay({ results }:{results:any}) {
       return (
         <div className="space-y-3">
           <div
-            className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-5 border-2 border-green-200 hover:shadow-lg transition-all duration-300"
+            className="bg-linear-to-r from-green-50 to-emerald-50 rounded-lg p-5 border-2 border-green-200 hover:shadow-lg transition-all duration-300"
             style={{ animation: "scaleIn 0.5s ease-out" }}
           >
             <p className="text-xs font-bold text-green-700 uppercase tracking-wider mb-2">Required Chase Range</p>
@@ -49,7 +49,7 @@ export function ResultsDisplay({ results }:{results:any}) {
             </p>
           </div>
           <div
-            className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-5 border-2 border-purple-200 hover:shadow-lg transition-all duration-300"
+            className="bg-linear-to-r from-purple-50 to-pink-50 rounded-lg p-5 border-2 border-purple-200 hover:shadow-lg transition-all duration-300"
             style={{ animation: "scaleIn 0.5s ease-out 0.1s both" }}
           >
             <p className="text-xs font-bold text-purple-700 uppercase tracking-wider mb-2">Revised NRR Range</p>
@@ -66,7 +66,7 @@ export function ResultsDisplay({ results }:{results:any}) {
 
   return (
     <Card className="cricket-card bg-card border-red-200 shadow-lg" style={{ animation: "fadeInUp 0.6s ease-out" }}>
-      <CardHeader className="border-b border-red-200 bg-gradient-to-r from-red-50 to-orange-50">
+      <CardHeader className="border-b border-red-200 bg-linear-to-r from-red-50 to-orange-50">
         <div className="flex items-center justify-between">
           <CardTitle className="text-2xl font-bold text-red-900">Calculation Results</CardTitle>
           <Badge
