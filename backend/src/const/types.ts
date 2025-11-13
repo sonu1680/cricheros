@@ -30,3 +30,16 @@ export interface MatchContext {
   target?: number; // used if chasing
   battingFirst: boolean;
 }
+
+
+
+
+export interface SimulationParams {
+  team: string;
+  opponent: string;
+  myTeam: TeamStats;
+  oppTeam: TeamStats;
+  runsScored: number;
+  overs: number;
+  desiredPosition: number;
+}

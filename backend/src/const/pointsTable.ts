@@ -1,6 +1,6 @@
 import { TeamStats } from "./types";
 
-export const pointsTable: TeamStats[] = [
+export const POINTS_TABLE: TeamStats[] = [
   {
     name: "Chennai Super Kings",
     matches: 7,
