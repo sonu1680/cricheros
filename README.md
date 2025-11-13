@@ -131,5 +131,4 @@ and backend at **http://localhost:5000** (or your configured port).
 **Sonu Kumar Pandit**  
 
 🌐 [Portfolio](https://www.sonupandit.in)  
-💼 [LinkedIn]([https://linkedin.com/in/sonupandit](https://www.linkedin.com/in/sonu-kumar-pandit-563a6b254/))  
 
