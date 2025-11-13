@@ -46,15 +46,18 @@ You’ll receive a sample IPL-like points table and must build logic that can an
 
 ---
 
+##  API Endpoint
+http://localhost:5000/api/calculate
+
 ##  Example Input
 
 ```
-Your Team: Rajasthan Royals  
-Opposition Team: Delhi Capitals  
-Overs: 20  
-Desired Position: 3  
-Toss: Bat  
-Runs Scored: 120  
+  "team": "Rajasthan Royals",
+  "opponent": "Delhi Capitals",
+  "overs": 20,
+  "tossResult": "bat",
+  "runsScored": 120,
+  "desiredPosition": 3  
 ```
 
 ---
@@ -83,7 +86,6 @@ to reach 3rd position.
 ```
 NRR = (Total Runs Scored / Total Overs Faced) - (Total Runs Conceded / Total Overs Bowled)
 ```
-
 
 
 ## Project Setup
