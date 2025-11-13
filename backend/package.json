@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc -b && node dist/server.js",
-    "dev":" tsc-watch --onSuccess \"node ./dist/server.js\""
+    "dev": " tsc-watch --onSuccess \"node ./dist/server.js\""
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "express-rate-limit": "^8.2.1",
     "tsc-watch": "^7.2.0"
   },
   "devDependencies": {

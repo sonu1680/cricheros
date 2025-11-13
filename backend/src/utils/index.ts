@@ -22,6 +22,7 @@ export const sortTeams = (teams: TeamStats[]) =>
     b.points === a.points ? b.nrr - a.nrr : b.points - a.points
   );
 
+  
 
 
  
