@@ -14,6 +14,17 @@ export const ballsToOvers = (balls: number): number => {
   return Number(`${over}.${ball}`);
 };
 
+
+// converts total over into balls
+
+export const oversToBalls = (overs: number): number => {
+  const [over, balls] = overs.toString().split(".");
+  const o = parseInt(over);
+  const b = balls ? parseInt(balls) : 0;
+  return o * 6 + b;
+};
+
+
 // calculates Net Run Rate  for a team
 export const calculateNRR = (team: TeamStats): number => {
   const forRate = team.runsFor / normalizeOver(team.oversFor);

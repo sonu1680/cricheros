@@ -1,6 +1,6 @@
 import { POINTS_TABLE } from "../const/pointsTable";
 import { TeamStats } from "../const/types";
-import { ballsToOvers, calculateNRR, sortTeams } from "../utils";
+import { ballsToOvers, calculateNRR, normalizeOver, oversToBalls, sortTeams } from "../utils";
 import { cloneTable } from "../utils/teamUtils";
 
 /**
@@ -42,10 +42,12 @@ export const simulateBowlingScenario = (
     const tableClone = baseTable.map((t) => ({ ...t })); // Clone for safe mutation
     const updatedTeam = tableClone.find((t) => t.name === myTeam.name)!;
     const updatedOpp = tableClone.find((t) => t.name === oppTeam.name)!;
-
     //update chasing team stats
     updatedTeam.runsFor = myTeam.runsFor + target;
-    updatedTeam.oversFor = myTeam.oversFor + chaseOvers;
+    updatedTeam.oversFor = ballsToOvers(
+      oversToBalls(myTeam.oversFor) + chaseBalls
+    );;
+  
     updatedTeam.runsAgainst = myTeam.runsAgainst + runsScored;
     updatedTeam.oversAgainst = myTeam.oversAgainst + overs;
     updatedTeam.matches++;
@@ -56,12 +58,17 @@ export const simulateBowlingScenario = (
     updatedOpp.runsFor = oppTeam.runsFor + runsScored;
     updatedOpp.oversFor = oppTeam.oversFor + overs;
     updatedOpp.runsAgainst = oppTeam.runsAgainst + target;
-    updatedOpp.oversAgainst = oppTeam.oversAgainst + chaseOvers;
+    updatedOpp.oversAgainst = ballsToOvers(
+      oversToBalls(oppTeam.oversAgainst) + chaseBalls
+    );;
+ 
     updatedOpp.matches++;
     updatedOpp.nrr = calculateNRR(updatedOpp);
+   
 
     // sort teams by points and NRR to find new ranking
     const ranked = sortTeams(tableClone);
+
     const newPosition = ranked.findIndex((t) => t.name === myTeam.name) + 1;
 
     return { position: newPosition, nrr: updatedTeam.nrr };
@@ -73,32 +80,39 @@ export const simulateBowlingScenario = (
   let minNRR: number | null = null; // NRR for min overs
   let maxNRR: number | null = null; // NRR for max overs
 
-  // binary search to find minimum overs needed
-  let low = 0,
+  // Find minimum overs (lower bound)
+  let low = 1,
     high = totalBalls;
   while (low <= high) {
     const mid = Math.floor((low + high) / 2);
     const { position, nrr } = simulateMatch(mid);
-    if (position === desiredPosition) {
-      minValue = Number((mid / 6).toFixed(2));
+    if (position== desiredPosition) {
+      minValue = ballsToOvers(mid);
       minNRR = nrr;
+
       high = mid - 1;
-    } else if (position > desiredPosition) high = mid - 1;
-    else low = mid + 1;
+    } else {
+      low = mid + 1;
+    }
   }
 
-  // binary search to find maximum overs allowed
-  low = 0;
-  high = totalBalls;
+  // Find maximum overs (upper bound)
+  low = 1;
+   high = totalBalls;
   while (low <= high) {
     const mid = Math.floor((low + high) / 2);
     const { position, nrr } = simulateMatch(mid);
-    if (position === desiredPosition) {
-      maxValue = Number((mid / 6).toFixed(2));
+
+    if (position <= desiredPosition) {
+      
+      // We can achieve the position, try slower chases
+      maxValue = ballsToOvers(mid);
       maxNRR = nrr;
       low = mid + 1;
-    } else if (position > desiredPosition) high = mid - 1;
-    else low = mid + 1;
+    }
+     else {
+      high = mid - 1;
+    }
   }
 
   // if desired position cannot be achieved

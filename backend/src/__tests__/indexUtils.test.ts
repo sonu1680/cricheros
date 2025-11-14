@@ -1,5 +1,6 @@
-import { normalizeOver, ballsToOvers, calculateNRR } from "../utils/index";
 import { TeamStats } from "../const/types";
+import { ballsToOvers, calculateNRR, normalizeOver } from "../utils";
+
 
 describe("normalizeOver", () => {
   it("should convert overs string with decimal to correct float", () => {
@@ -18,7 +19,7 @@ describe("normalizeOver", () => {
 
 describe("ballsToOvers", () => {
   it("should convert balls to overs string format", () => {
-    expect(ballsToOvers(26)).toBe(4.2); 
+    expect(ballsToOvers(26)).toBe(4.2);
     expect(ballsToOvers(6)).toBe(1.0);
     expect(ballsToOvers(0)).toBe(0.0);
     expect(ballsToOvers(13)).toBe(2.1);
@@ -52,7 +53,7 @@ describe("calculateNRR", () => {
       lost: 0,
       nrr: 0,
       runsFor: 75,
-      oversFor: 10.2, 
+      oversFor: 10.2,
       runsAgainst: 70,
       oversAgainst: 10,
       points: 0,

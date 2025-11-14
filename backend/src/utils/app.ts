@@ -19,7 +19,7 @@ app.use(helmet());
 app.use(limiter);
 
 //to check if api is working
-app.get("test",(req,res)=>{
+app.get("/test",(req,res)=>{
     res.end("API is working");
 });
 

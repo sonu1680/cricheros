@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc -b && node dist/server.js",
+    "build": "tsc -b",
+    "start":" node dist/server.js",
     "dev": " tsc-watch --onSuccess \"node ./dist/server.js\"",
-    "test": "jest --watchAll"
+    "test": "jest --config jest.config.js"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.1",
     "@types/supertest": "^6.0.3",
     "jest": "^30.2.0",
     "supertest": "^7.1.4",
